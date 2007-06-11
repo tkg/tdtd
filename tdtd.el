@@ -2,7 +2,7 @@
 ;; $Id: tdtd.el,v 1.45 2001-08-31 23:15:22-04 tkg Exp $
 ;; $Name: tdtd08b1 $
 
-;; Copyright (C) 1996, 1997, 1998, 1999, 2001 Tony Graham
+;; Copyright (C) 1996, 1997, 1998, 1999, 2001, 2007 Tony Graham
 
 ;; Author: Tony Graham <tkg@menteith.com>
 ;; Contributors: Juanma Barranquero, Adam di Carlo
@@ -30,7 +30,7 @@
 
 ;; Requires tdtd-font.el
 ;; Requires 'etags for `find-tag-default'
-;; Requires 'imenu for "Goto" menu
+;; Requires 'imenu for "TAGS" menu
 ;; Requires 'make-regexp for tdtd-font.el
 ;; Requires 'reporter for `dtd-submit-bug-report'
 ;; Send bugs to tdtd-bug@menteith.com
@@ -60,11 +60,11 @@
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; Version information
 
-(defconst tdtd-version "0.8b1"
+(defconst tdtd-version "0.8b2"
   "Version number of tdtd.")
 
 (defun tdtd-version ()
-  "Returns the value of the variable tdtd-version."
+  "Returns the value of the variable `tdtd-version'."
   tdtd-version)
 
 (defconst tdtd-maintainer-address "tdtd-bug@menteith.com")
@@ -73,7 +73,7 @@
 ;; Variables
 
 (defvar dtd-autodetect-type t
-  "*Non-nil enables autodetection of XML or SGML when entering dtd-mode.")
+  "*Non-nil enables autodetection of XML or SGML when entering `dtd-mode'.")
 
 (defvar dtd-xml-flag nil
   "*Non-nil enables XML-specific behaviour, where implemented.")
@@ -82,8 +82,7 @@
   "*Non-nil enables SGML Declaration-specific behaviour, where implemented.")
 
 (defvar dtd-sys-decl-flag nil
-  "*Non-nil enables System Declaration-specific behaviour, where implemented."
-  )
+  "*Non-nil enables System Declaration-specific behaviour, where implemented.")
 
 (defun dtd-xml-p ()
   "Returns t when XML-specific behaviour is enabled, otherwise returns nil."
@@ -2019,7 +2018,7 @@ of declarations, some of which are shown in the following examples:
 	;; when you use tdtd
 	(setq imenu-create-index-function 'dtd-imenu-create-index-function)
 	(setq imenu-extract-index-name-function 'dtd-imenu-create-index-function)
-	(imenu-add-to-menubar "Goto")))
+	(imenu-add-to-menubar "TAGS")))
   (set-syntax-table dtd-mode-syntax-table)
   ;; XML specific behaviour can be specific to a buffer
   (make-local-variable 'dtd-xml-flag)
@@ -2055,6 +2054,8 @@ of declarations, some of which are shown in the following examples:
 (defun dtd-submit-bug-report ()
   "Submit via mail a bug report on TDTD."
   (interactive)
+  (require 'reporter)
+  (require 'sendmail)
   (and (y-or-n-p "Do you really want to submit a report on DTD mode? ")
        (reporter-submit-bug-report
 	tdtd-maintainer-address
