@@ -1,0 +1,302 @@
+This is a short tutorial on using dtd-mode when creating new
+declarations and working with existing declarations in DTD files.
+
+This tutorial uses the following conventions:
+
+   Control keys are written with the prefix "C-".
+
+   Meta key combinations are written with the prefix "M-".
+
+   The return key is written as "RET".
+
+   The space character is written as "SPACE".
+
+   Sequences of keys are written with space between them, and the
+   space character should not be typed.
+
+   Input terminated by RET is generally written with "Enter...".
+
+   Input that does not need RET is generally written with "Type...".
+
+
+* CREATING A NEW DTD
+
+You are going to create the following DTD file:
+
+------------------------------------------------------------
+<?xml version="1.0" encoding="utf-8"?>
+<!-- ============================================================= -->
+<!--                    dtd-mode tutorial DTD                      -->
+<!-- ============================================================= -->
+
+<!--                    Paragraph Content                          -->
+<!--                    Content allowed inside paragraphs          -->
+<!ENTITY % paracon     "#PCDATA | list"                              >
+
+<!--                    Book                                       -->
+<!ELEMENT  book         (para | list)+                               >
+
+<!--                    Paragraph                                  -->
+<!ELEMENT  para         (%paracon;)*                                 >
+
+<!--                    List                                       -->
+<!ELEMENT  list         (item+)                                      >
+<!--         type       Specifies the formatting applied to the list
+                        items
+             id         Unique identifier                          -->
+<!ATTLIST  list
+             type       (ordered | unordered)              #REQUIRED
+             id         ID                                 #IMPLIED  >
+
+<!--                    List Item                                  -->
+<!ELEMENT  item         (para | list)+                               >
+
+<!--                    End of dtd-mode tutorial DTD               -->
+------------------------------------------------------------
+
+
+1. Find the file "tutorial.dtd":
+
+   1.1 Enter "C-x C-f tutorial.dtd".
+
+       Since it doesn't exist, Emacs will create it.
+
+2. Enter the XML declaration:
+
+   <?xml version="1.0" encoding="utf-8"?>
+
+3. Enter the comment "dtd-mode tutorial DTD":
+
+   3.1 Type "C-u C-c C-c".
+
+   3.2 At the prompt, enter "dtd-mode tutorial DTD".
+
+4. Insert a blank line, then enter the internal parameter entity
+   declaration:
+
+   4.1 Type "C-c C-%".
+
+   4.2 At the first prompt, enter "paracon".
+
+   4.3 At the successive prompts, enter "Paragraph Content", "Content
+       allowed inside paragraphs", and "#PCDATA | list".
+
+5. Insert a blank line, then enter the <book> element type
+   declaration:
+
+   5.1 Type "C-c C-e".
+
+   5.2 At the first prompt, enter "book".
+
+   5.3 At the successive prompts, enter (or change to make) "Book", ""
+       (since we're not bothering with a comment), and "(para |
+       list)+".
+
+6. Create a TAGS file:
+
+   6.1 Type "C-x C-s" to save "tutorial.dtd".
+
+   6.2 Enter "M-x dtd-etags".
+
+   6.3 At the prompt, enter "tutorial.dtd".
+
+7. Insert a blank line then enter the <para> element type declaration:
+
+   7.1 Type "C-c C-e".
+
+   7.2 At the prompt, accept "para" as the default.
+
+       Note that you can scroll through this history list (and all
+       other minibuffer history lists) with "M-p" and "M-n".
+
+   7.3 At the next two prompts, enter (or change to make) "Paragraph"
+       and "".
+
+   7.4 At the content specification prompt, type "(%", then type
+       "M-TAB" if using Emacs 19.34 ("ESC TAB" if using NTEmacs,
+       "C-u M-TAB" if using Emacs 20.3, "C-u ESC TAB" if using
+       NTEmacs 20.3, or "C-M-i" if "M-TAB" is preempted by the
+       operating system).
+
+       Emacs will complete the parameter entity name using the
+       information from the TAGS file created with `dtd-etags'.
+
+   7.5 Enter ")*" to complete the content specification.
+
+8. Insert a blank line, then enter the <list> element type
+   declaration:
+
+   8.1 Type "C-c C-e".
+
+   8.2 At the prompt, accept "list" as the default.
+
+       "list" is now the default since "para" was removed from the
+       history list when the <para> element type was declared.
+
+   8.3 At the successive prompts, enter "List", "", and "(item+)".
+
+9. Enter the attribute list declaration for <list>:
+
+   9.1 Type "C-c C-a".
+
+   9.2 At the prompt, accept "list" as the element type name.
+
+   9.3 At successive prompts, enter "type", "Specifies the formatting
+       applied to the list items", and "(ordered | unordered)".
+
+   9.4 At the prompt for the default, type "M-p M-p" to select
+       "#REQUIRED".
+
+   9.5 Type "C-c C-a".
+
+   9.6 At successive prompts, enter "id" and "Unique identifier".
+
+   9.7 At the prompt for the attribute type, repeatedly type "M-p"
+       until the prompt value is "ID".
+
+       "ID" is present because the attribute type minibuffer was
+       initialised with the attribute types allowed in XML.
+
+   9.8 At the default prompt, repeatedly type "M-p" until the prompt
+       value is "#IMPLIED".
+
+       Note how the minibuffer history list keeps the most recently
+       used value at the head of the list.
+
+       When the second attribute is entered, its comment is merged
+       with that of the first attribute, and the ">" at the end of the
+       attribute list declaration is moved to after the declaration
+       for the second attribute.  If point (i.e. the cursor position)
+       had been before the declaration for the first attribute, the
+       second attribute would have been inserted before the first.
+
+10. Insert a blank line, then enter the declaration for <item>.
+
+    Note that "item" is the default in the "Element tag" minibuffer
+    history list and, since the <item> content model is that same as
+    that for <book>, the content specification can be recalled from
+    the minibuffer history list for content specifications.
+
+11. Insert a blank line, then enter the closing comment:
+
+    11.1 Type "C-c C-c".
+
+    11.2 Enter "End of dtd-mode tutorial DTD".
+
+12. Enter "C-x C-s" to save the file.
+
+
+* WORKING WITH AN EXISTING DTD
+
+1. Open or create tutorial.dtd.
+
+   1.1 Enter "C-x C-f tutorial.dtd".
+
+2. Update the TAGS file:
+
+   2.1 Enter "M-x dtd-etags".
+
+   2.2 If necessary, enter "tutorial.dtd".
+
+3. Find the declaration for <para>:
+
+   3.1 Type "M-.".
+
+   3.2 At the prompt, enter "para".
+
+       Point moves to the first token in the content model for <para>.
+
+4. Find the declaration for %paracon; in another window:
+
+   4.1 Type "C-x 4 .".
+
+   4.2 Enter "RET" to accept the default.
+
+       Point moves to the first token in the replacement text for
+       %paracon;.
+
+5. Find the declarations for <list>:
+
+   5.1 Type "M-f M-f" to move point to the "list" text.
+
+   5.2 Type "M-." and accept the default.
+
+       Point moves to the first token in the <list> content
+       specification.
+
+   5.3 Type "M-0 M-.".
+
+       Emacs uses the same tag, moves to the next occurrence of the
+       <list> element type name, and leaves point at the start of the
+       first attribute name.
+
+   5.4 Type "M-- M-.".
+
+       Point moves back to the previous use of the <list> element type
+       name.
+
+6. Find all occurrences of "list":
+
+   6.1 Enter "M-x dtd-grep".
+
+   6.2 Enter "list".
+
+   6.3 Accept the default file specification, since it is the same as
+       was used with `dtd-etags'.
+
+       The other window shows all occurrences of "list" in the
+       tutorial.dtd.
+
+   6.4 Type "C-x `".  (That's the 'backtick' or 'reverse single
+       quote'.)
+
+       Point moves to the first occurrence of "list", and the *grep*
+       buffer scrolls to place the corresponding line at the top of
+       the window.
+
+   6.5 Move to another line in the other window (e.g. type "C-x o C-n
+       C-n C-n") then type "RET".
+
+       Point moves to that occurrence of "list" in tutorial.dtd, and
+       the *grep* buffer scrolls to place the line at the top of the
+       buffer.
+
+7. Change all "paracon" to "ParaContent":
+
+   7.1 Enter "M-x tags-query-replace".
+
+   7.2 Enter "paracon" at the first prompt, and "ParaContent" at the
+       second.
+
+   7.3 Type "SPACE SPACE" to perform the two replacements.
+
+       These changes could have been done with `query-replace-regexp'
+       since we're working with a single file, but
+       `tags-query-replace' will also work across multiple files.
+
+       Since there isn't yet a auto-fill function for declarations,
+       the changed declarations need fixing.
+
+   7.4 Type "C-c >".
+
+       The ">" ending the declaration moves to the correct column.
+       This same function will insert a ">" if there isn't one on the
+       line, and will insert or move "-->" if inside a comment.
+
+   7.5 Fix the other declaration manually.
+
+       One day there'll be an auto-fill function...
+
+8. Use the "Goto" menu to find the declaration for <item>:
+
+   8.1 Under the "Goto" menu, select the "item" entry.
+
+       Point moves to the first token in the <item> content
+       specification.
+
+9. Type "C-x C-s" to save the file.
+
+
+-----
+$Id: tutorial.txt,v 1.8 2001-08-31 23:14:30-04 tkg Exp $
+$Name: tdtd08b1 $

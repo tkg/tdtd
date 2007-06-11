@@ -1,0 +1,289 @@
+tdtd Change Log
+===============
+$Id: changelog.txt,v 1.12 2001-09-01 21:08:51-04 tkg Exp $
+$Name: tdtd08b1 $
+
+Revision 0.8 beta 1, 1st September, 2001
+========================================
+
+tdtd.el
+-------
+
+Corrected bug in `dtd-toggle-debug-on-error'.
+
+Modified `dtd-analyse-content-spec' to ignore CDATA and RCDATA
+keywords and expanded regexp for recognising parameter entities.
+
+Added `dtd-defined-in-comment'.
+
+Modified `dtd-insert-mdc' to better recognise comments.
+
+Added `dtd-electric-return' and `dtd-recalc-mdc-after-change'.
+
+tdtd-font-maker.el
+------------------
+
+Split dtd-xml-keyword-list-1-pound out from dtd-xml-keyword-list-1.
+
+Added INCLUDE and IGNORE to dtd-public-text-class-keywords.
+
+Changed some `make-regexp' to `regexp-opt'.
+
+Swapped order of generated copyright notice and generated note to not
+modify generated file.
+
+makefile
+--------
+
+Added rule to compile .elc files.
+
+Added rule to 'brand' files.
+
+tutorial.txt
+------------
+
+Corrected XML declaration.
+
+Corrected <list> content model to conform to XML.
+
+Expanded on options for getting M-TAB or equivalent.
+
+Explained that '`' is a backtick.
+
+dot_emacs
+---------
+
+Added commented out version of what should be Windows version of
+dtd-etags-regex-option.
+
+
+Revision 0.7.1, March 24, 1999
+==============================
+
+tdtd.el
+-------
+
+Added test for beginning of line before removing line end after
+`fill-region' since Emacs 19.34 different from Emacs 20.3.
+
+Corrected two spelling errors.
+
+tdtd-font-maker.el
+------------------
+
+Added more initial comment in tdtd-font.el output.
+
+added `dtd-make-safe-var-def' to fix problems with generated
+tdtd-font.el.
+
+tutorial.txt
+------------
+
+Added more variations on M-TAB in step 7.4 since `complete-symbol' in
+Emacs 20.3 is backwards w.r.t. both its documentation and Emacs 19.34
+behaviour.
+
+
+Revision 0.7, February 22, 1999
+===============================
+
+tdtd.el
+-------
+
+Stopped being a derived mode.
+
+Moved `require' forms to top of file where they'll be more visible.
+
+Added support for detecting System Declaration and specific font-lock
+keywords for XML DTDs, SGML DTDs, SGML Declarations, and System
+Declarations.
+
+Added `dtd-font-lock-region-point-min' and
+`dtd-font-lock-region-point-max' in support of change to font locking
+because of XEmacs.
+
+Added dtd-grep-command-format for customising dtd-grep command.
+
+Added imenu stuff.
+
+Added `dtd-electric-mdc' so refontification happens even if you don't
+use `dtd-insert-mdc'.
+
+Added variables controlling prompting for descriptive names and
+comments in element, etc. declarations.
+
+Added `read-from-minibuffer' stuff for `declare-external-entity'.
+
+Renamed dtd-autodetect-xml to dtd-autodetect-type since now also
+detects SGML Declaration, now uses different font-lock keywords if
+XML.
+
+Changed all dtd-mode-map definitions to use XEmacs-compatible syntax.
+
+Changed all `font-lock-fontify-block' to something that works with
+XEmacs and that respects the current font-lock-mode value.
+
+Added test to not print name comments if no content.
+
+Added 1999 to copyright years.
+
+tdtd-font.el
+------------
+
+Renamed to `tdtd-font-maker.el'.  `tdtd-font.el' now created by
+`dtd-make-tdtd-font' function in `tdtd-font-maker.el'.
+
+tdtd-font-maker.el
+------------------
+
+Renamed from `tdtd-font.el'.
+
+Added `dtd-make-tdtd-font'.
+
+Major rework to support different sets of font-lock keywords for XML
+DTDs, SGML DTDs, SGML Declarations, and System Declarations.
+
+Added 1999 to copyright years
+
+tutorial.txt
+------------
+
+Fixed a typo, added example of using "Goto" menu.
+
+dot_emacs
+---------
+
+Added autoloads for `dtd-etags' and `dtd-grep', added .ele to
+auto-mode-alist
+
+
+Revision 0.6, August 1, 1998
+==========================
+
+tdtd.el
+-------
+
+Added dtd-grep.
+
+Added dtd-submit-bug-report.
+
+Added functions for attribute lists, parameter entities, external
+entities, and notations.
+
+Added lots of minibuffer histories, added many prompted defaults, and
+added `dtd-read-from-minibuffer'.
+
+Folded `dtd-big-comment' processing into `dtd-comment'.
+
+Changed some keymaps.
+
+Added more to `dtd-find-tag-hook'.
+
+Added dtd-outdent-attribute-pe variable and added variables and
+support for different indents for content models in XML element
+declarations.
+
+Changed ">=" to ">" in `dtd-indent-or-newline-to'.
+
+Added recreating dtd-declared-element-type-names as part of dtd-etags.
+
+Added "<" and ">" to syntax table as punctuation characters.
+
+Added dtd-design-comment-start.
+
+Removed useless `dtd-startup'.
+
+Changed parameter entity value indent column.
+
+Made all `re-search-forward' and `re-search-backward' not throw error
+on no match.
+
+Added dtd-upcase-name-comment-flag.
+
+tdtd-font.el
+------------
+
+Removed brain-dead #EMPTY keyword and reinserted EMPTY, added DTD
+keyword.
+
+
+Revision 0.5.1, May 25, 1998
+============================
+
+tdtd-font.el
+------------
+
+Minor change to implicit and explicit link regular expressions that
+were causing problems with XEmacs 20.4.
+
+
+Revision 0.5, May 25, 1998
+============================
+
+tdtd.el
+-------
+
+Added dtd-etags stuff and syntax table stuff.
+
+Moved dtd-mode definition here since finally got autoload to work.
+
+Added more variable and function comments, changed many hard-coded
+strings to values computed from variables, and changed many of the
+variables for indent columns to be column at which to leave point and
+used (1- value) when computing prefix strings, etc.
+
+Changed all tdtd- to dtd- in variable and function names since using
+the mode name, not the package name, as the prefix is the preferred
+elisp style.
+
+Moved turning font lock on out of dtd-mode definition so user has a
+choice.
+
+Changed most setq to defvar so user can override in their .emacs file.
+
+Added some XML smarts, including autodetection of XML Declaration.
+
+Added dtd-indent-tabs-mode to control setting indent-tabs-mode on
+entering dtd-mode.
+
+tdtd-font.el
+------------
+
+Changed all tdtd- to dtd- to match mode name.
+
+Added more regular expressions for font lock of processing
+instructions.
+
+Changed order of parameter entity font lock regular expression so
+"<!ELEMENT %pe;" works properly.
+
+
+Revision 0.4, April 21, 1998
+============================
+
+tdtd-font.el
+------------
+
+Added \\b...\\b around reserved word regular expression so only
+matches on whole words, not on reserved words appearing within words.
+Required rearranging regular expression for reserved words starting
+with '#' plus '(ENR)', '(WWW)', '+//', '-//', and '//'.
+
+Added '(WWW)' and 'xml' as reserved words
+
+
+Revision 0.3, December 14, 1997
+===============================
+
+tdtd.el
+-------
+
+Fixed bug with lines with just "-->" in tdtd-insert-mdc.  Started
+playing with tdtd-fill-paragraph.
+
+tdtd-font.el
+------------
+
+Added XML as keyword, added XML PI, XML-style element declaration,
+SHORTREF declaration, and USEMAP declaration.
+

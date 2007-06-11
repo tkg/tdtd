@@ -1,0 +1,35 @@
+;; $Id: dot_emacs,v 1.6 2001-08-12 21:19:52-04 tkg Exp $
+
+;; DTD mode
+(autoload 'dtd-mode "tdtd" "Major mode for SGML and XML DTDs." t)
+(autoload 'dtd-etags "tdtd"
+  "Execute etags on FILESPEC and match on DTD-specific regular expressions."
+  t)
+(autoload 'dtd-grep "tdtd" "Grep for PATTERN in files matching FILESPEC." t)
+
+;; Turn on font lock when in DTD mode
+(add-hook 'dtd-mode-hooks
+	  'turn-on-font-lock)
+
+(setq auto-mode-alist
+      (append
+       (list
+	'("\\.dcl$" . dtd-mode)
+	'("\\.dec$" . dtd-mode)
+	'("\\.dtd$" . dtd-mode)
+	'("\\.ele$" . dtd-mode)
+	'("\\.ent$" . dtd-mode)
+	'("\\.mod$" . dtd-mode))
+       auto-mode-alist))
+
+;;;; Windows users who are not using a Unix-like shell should uncomment
+;;;; the following variable definition:
+;;(defvar dtd-etags-regex-option
+;;  "--regex=\"/<!\\(ELEMENT\\|ENTITY[ \\t]+%%\\|NOTATION\\|ATTLIST\\)[ \\t]+\\([^ \\t]+\\)/\\2/\""
+;;  "*Complete, including \"--regex=\", etags regular expression option string
+;;for the etags command line for extracting tags (in the Emacs sense)
+;;from DTDs.")
+
+
+;; To use resize-minibuffer-mode, uncomment this and include in your .emacs:
+;;(resize-minibuffer-mode)

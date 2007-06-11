@@ -1,0 +1,18 @@
+# $Id: TODO,v 1.2 2001-08-12 21:24:11-04 tkg Exp $
+# $Name: tdtd08b1 $
+font lock for FPI types
+option to not prompt for comments
+menus
+no spaces when entering element, etc., names
+form buffer for declarations
+read catalog and find referenced modules
+Lee Quin-style declarations
+ESC TAB bound to info-complete-tag in some Emacs/XEmacs
+catalog mode
+customization group
+auto-fill
+auto-indent
+right-mouse jumps to definition
+populate empty file with initial content
+autodetect mdc column
+Add '#' to word class in syntax table and simplify font-lock keywords
