@@ -2,7 +2,7 @@
 ;; $Id: tdtd-font-maker.el,v 0.20 2001-08-31 23:16:19-04 tkg Exp $
 ;; $Name: tdtd08b1 $
 
-;; Copyright (C) 1997, 1998, 1999, 2001 Tony Graham
+;; Copyright (C) 1997, 1998, 1999, 2001, 2007 Tony Graham
 
 ;; Author: Tony Graham <tkg@menteith.com>
 
@@ -296,9 +296,9 @@
 
 ;;;; Code:
 (eval-and-compile
-  (autoload 'make-regexp "make-regexp"))
+  (autoload 'tdtd-make-regexp "tdtd-make-regexp"))
 (eval-and-compile
-  (autoload 'make-regexps "make-regexp"))
+  (autoload 'tdtd-make-regexps "tdtd-make-regexp"))
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; Lists of reserved names
@@ -318,7 +318,7 @@
 ;; non-word character, and those that don't contain any non-word
 ;; characters.  This is necessary since the keyword regular
 ;; expressions are bracketed by "\\b", which is necessary so the
-;; regular expressions produced by `make-regexps' match on the longest
+;; regular expressions produced by `tdtd-make-regexps' match on the longest
 ;; possible string.  I have previously tried producing font lock
 ;; keywords regular expressions for these reserved names by hand, but
 ;; they're not particularly readable or maintainable when done by
@@ -751,7 +751,7 @@
     ;; can't be in the same keyword list as "xml".
     ;;
     ;; The alternative is constructing the regular expression by hand,
-    ;; which I've done before, but using `make-regexps' should make more
+    ;; which I've done before, but using `tdtd-make-regexps' should make more
     ;; readable code.
     (list
      (concat
@@ -781,15 +781,15 @@
    (list
     ;;
     ;; Keywords
-    (make-regexps
+    (tdtd-make-regexps
      (list dtd-sgml-keyword-list-1
 	   font-lock-type-face)
      "\\b")
     ;;
-    (make-regexps "\\b"
-		  (list dtd-sgml-keyword-list-2
-			font-lock-type-face)
-		  "\\b")
+    (tdtd-make-regexps "\\b"
+		       (list dtd-sgml-keyword-list-2
+			     font-lock-type-face)
+		       "\\b")
     )
    dtd-common-font-lock-keywords-2
    )
@@ -809,29 +809,29 @@
       (3 font-lock-keyword-face))
     ;;
     ;; Keywords
-    (make-regexps "\\b"
-		  (list
-		   (append
-		    dtd-common-sgml-declaration-keywords
-		    dtd-charset-keywords
-		    dtd-capacity-set-keywords
-		    dtd-concrete-syntax-scope-keywords
-		    dtd-concrete-syntax-keywords
-		    dtd-features-keywords
-		    dtd-appinfo-keywords
-		    dtd-public-text-class-keywords)
-		   font-lock-type-face)
-		  "\\b")
+    (tdtd-make-regexps "\\b"
+		       (list
+			(append
+			 dtd-common-sgml-declaration-keywords
+			 dtd-charset-keywords
+			 dtd-capacity-set-keywords
+			 dtd-concrete-syntax-scope-keywords
+			 dtd-concrete-syntax-keywords
+			 dtd-features-keywords
+			 dtd-appinfo-keywords
+			 dtd-public-text-class-keywords)
+			font-lock-type-face)
+		       "\\b")
     ;;
     ;; Minimum literal keywords
     ;;
-    (make-regexps (list
-		   dtd-sgml-declaration-minimum-literal-keywords
-		   font-lock-type-face))
+    (tdtd-make-regexps (list
+			dtd-sgml-declaration-minimum-literal-keywords
+			font-lock-type-face))
     ;;
     ;; Reserved names beginning with a non-word characters
     ;;
-    (make-regexps
+    (tdtd-make-regexps
      (list dtd-xml-keyword-list-1
 	   font-lock-type-face)
      "\\b")
@@ -857,34 +857,34 @@
     ;;
     ;; Keywords starting with a non-word character
     ;;
-    (make-regexps
+    (tdtd-make-regexps
      (list dtd-system-declaration-keyword-list-1
 	   font-lock-type-face)
      "\\b")
     ;;
     ;; Other keywords
     ;;
-    (make-regexps "\\b"
-		  (list
-		   (append
-		    dtd-common-sgml-declaration-keywords
-		    dtd-charset-keywords
-		    dtd-capacity-set-keywords
-		    dtd-concrete-syntax-scope-keywords
-		    dtd-concrete-syntax-changes-keywords
-		    dtd-concrete-syntax-keywords
-		    dtd-features-keywords
-		    dtd-validation-services-keywords
-		    dtd-sdif-support-keywords
-		    dtd-public-text-class-keywords)
-		   font-lock-type-face)
-		  "\\b")
+    (tdtd-make-regexps "\\b"
+		       (list
+			(append
+			 dtd-common-sgml-declaration-keywords
+			 dtd-charset-keywords
+			 dtd-capacity-set-keywords
+			 dtd-concrete-syntax-scope-keywords
+			 dtd-concrete-syntax-changes-keywords
+			 dtd-concrete-syntax-keywords
+			 dtd-features-keywords
+			 dtd-validation-services-keywords
+			 dtd-sdif-support-keywords
+			 dtd-public-text-class-keywords)
+			font-lock-type-face)
+		       "\\b")
     ;;
     ;; Minimum literal keywords
     ;;
-    (make-regexps (list
-		   dtd-sgml-declaration-minimum-literal-keywords
-		   font-lock-type-face))
+    (tdtd-make-regexps (list
+			dtd-sgml-declaration-minimum-literal-keywords
+			font-lock-type-face))
     ;;
     )
    dtd-common-font-lock-keywords-2

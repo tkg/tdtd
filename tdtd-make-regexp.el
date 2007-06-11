@@ -1,4 +1,4 @@
-;;; make-regexp.el --- generate efficient regexps to match strings.
+;;; tdtd-make-regexp.el --- generate efficient regexps to match strings.
 
 ;; Copyright (C) 1994, 1995 Simon Marshall.
 
@@ -41,7 +41,7 @@
 ;;                  "catch" "throw" "save-restriction" "save-excursion"
 ;;                  "save-window-excursion" "save-match-data"
 ;;                  "unwind-protect" "condition-case" "track-mouse")))
-;;   (concat "(" (make-regexp strings t)))
+;;   (concat "(" (tdtd-make-regexp strings t)))
 ;;
 ;;      => "(\\(c\\(atch\\|ond\\(\\|ition-case\\)\\)\\|if\\|let\\*?\\|prog[12n]\\|save-\\(excursion\\|match-data\\|restriction\\|window-excursion\\)\\|t\\(hrow\\|rack-mouse\\)\\|unwind-protect\\|while\\)"
 ;;
@@ -50,7 +50,7 @@
 ;;
 ;; Obviously, the more the similarity between strings, the faster the regexp:
 ;;
-;; (make-regexp '("abort" "abs" "accept" "access" "array" "begin" "body" "case"
+;; (tdtd-make-regexp '("abort" "abs" "accept" "access" "array" "begin" "body" "case"
 ;;                "constant" "declare" "delay" "delta" "digits" "else" "elsif"
 ;;                "entry" "exception" "exit" "function"  "generic" "goto" "if"
 ;;                "others" "limited" "loop" "mod" "new" "null" "out" "subtype"
@@ -66,17 +66,17 @@
 ;;
 ;; But even small regexps may be worth it:
 ;;
-;; (make-regexp '("and" "at" "do" "end" "for" "in" "is" "not" "of" "or" "use"))
+;; (tdtd-make-regexp '("and" "at" "do" "end" "for" "in" "is" "not" "of" "or" "use"))
 ;;     => "a\\(nd\\|t\\)\\|do\\|end\\|for\\|i[ns]\\|not\\|o[fr]\\|use"
 ;;
 ;; as this is 10% faster than the mapconcat equivalent.
 
 ;; Installation:
 ;; 
-;; (autoload 'make-regexp "make-regexp"
+;; (autoload 'tdtd-make-regexp "tdtd-make-regexp"
 ;;   "Return a regexp to match a string item in STRINGS.")
 ;;
-;; (autoload 'make-regexps "make-regexp"
+;; (autoload 'tdtd-make-regexps "tdtd-make-regexp"
 ;;   "Return a regexp to REGEXPS.")
 ;;
 ;; Since these functions were written to produce efficient regexps, not regexps
@@ -85,7 +85,7 @@
 ;;
 ;; (defvar definition-regexp
 ;;   (let ((regexp (eval-when-compile
-;;                   (make-regexp '("defun" "defsubst" "defmacro" "defalias"
+;;                   (tdtd-make-regexp '("defun" "defsubst" "defmacro" "defalias"
 ;;                                  "defvar" "defconst" "defadvice") t))))
 ;;     (concat "^(" regexp)))
 ;;
@@ -121,7 +121,7 @@
 ;; (until we're sure we need them), and (b) try to squirrel out one-character
 ;; sequences (so we can use [] rather than ()).
 
-(defun make-regexp (strings &optional paren lax)
+(defun tdtd-make-regexp (strings &optional paren lax)
   "Return a regexp to match a string item in STRINGS.
 If optional PAREN non-nil, output regexp parentheses around returned regexp.
 If optional LAX non-nil, don't output parentheses if it doesn't require them.
@@ -141,7 +141,7 @@ Merges keywords to avoid backtracking in Emacs' regexp matcher."
      ((string= (car strings) "")
       (if (and (= (length strings) 2) (= (length (nth 1 strings)) 1))
 	  (concat open-lax (nth 1 strings) "?" close-lax)
-	(concat open-paren "\\|" (make-regexp (cdr strings)) close-paren)))
+	(concat open-paren "\\|" (tdtd-make-regexp (cdr strings)) close-paren)))
      ;; If there are only one-character strings, make a [] list instead.
      ((= (length strings) (apply '+ (mapcar 'length strings)))
       (concat open-lax "[" (mapconcat 'identity strings "") "]" close-lax))
@@ -152,7 +152,7 @@ Merges keywords to avoid backtracking in Emacs' regexp matcher."
 	    ;; Common prefix!  Squirrel it out and recurse with the suffixes.
 	    (let* ((len (length prefix))
 		   (sufs (mapcar '(lambda (str) (substring str len)) strings)))
-	      (concat open-paren prefix (make-regexp sufs t t) close-paren))
+	      (concat open-paren prefix (tdtd-make-regexp sufs t t) close-paren))
 	  ;; No common prefix.  Is there a one-character sequence?
 	  (let ((letters (let ((completion-regexp-list '("^.$")))
 			   (all-completions "" (mapcar 'list strings)))))
@@ -161,7 +161,7 @@ Merges keywords to avoid backtracking in Emacs' regexp matcher."
 		(let ((rest (let ((completion-regexp-list '("^..+$")))
 			      (all-completions "" (mapcar 'list strings)))))
 		  (concat open-paren
-			  (make-regexp letters) "\\|" (make-regexp rest)
+			  (tdtd-make-regexp letters) "\\|" (tdtd-make-regexp rest)
 			  close-paren))
 	      ;; No one-character sequence, so divide the list into two by
 	      ;; dividing into those that start with a particular letter, and
@@ -170,7 +170,7 @@ Merges keywords to avoid backtracking in Emacs' regexp matcher."
 		     (half1 (all-completions char (mapcar 'list strings)))
 		     (half2 (nthcdr (length half1) strings)))
 		(concat open-paren
-			(make-regexp half1) "\\|" (make-regexp half2)
+			(tdtd-make-regexp half1) "\\|" (tdtd-make-regexp half2)
 			close-paren))))))))))
 
 ;; This stuff is realy for font-lock...
@@ -184,7 +184,7 @@ This means the number of \"\\\\(...\\\\)\" pairs in REGEXP, optionally from STAR
 
 ;; The basic idea is to concat the regexps together, keeping count of the span
 ;; of the regexps so that we can get the correct match for hilighting.
-(defun make-regexps (&rest regexps)
+(defun tdtd-make-regexps (&rest regexps)
   "Return a regexp to match REGEXPS
 Each item of REGEXPS should be of the form:
 
@@ -200,7 +200,7 @@ Returns a list of the form:
 
 For example:
 
- (make-regexps \"^(\"
+ (tdtd-make-regexps \"^(\"
                '((\"defun\" \"defalias\" \"defsubst\" \"defadvice\") keyword)
                \"[ \t]*\"
                '(\"\\\\([a-zA-Z-]+\\\\)?\" 1 function-name nil t))
@@ -210,7 +210,7 @@ For example:
  (\"^(\\\\(def\\\\(a\\\\(dvice\\\\|lias\\\\)\\\\|subst\\\\|un\\\\)\\\\)[ 	]*\\\\([a-zA-Z-]+\\\\)?\"
   (1 keyword) (4 function-name nil t))
 
-Uses `make-regexp' to make efficient regexps."
+Uses `tdtd-make-regexp' to make efficient regexps."
   (let ((regexp "") (data ()))
     (while regexps
       (cond ((stringp (car regexps))
@@ -225,7 +225,7 @@ Uses `make-regexp' to make efficient regexps."
 	     (setq data (cons (cons (1+ (regexp-span regexp))
 				    (cdr (car regexps)))
 			      data)
-		   regexp (concat regexp (make-regexp (nth 0 (car regexps))
+		   regexp (concat regexp (tdtd-make-regexp (nth 0 (car regexps))
 						      t)))))
       (setq regexps (cdr regexps)))
     (cons regexp (nreverse data))))
@@ -290,4 +290,4 @@ UNFONTIFY first, if non-nil."
 		   regexp-time)
 	   'car-less-than-car))))
 
-;;; make-regexp.el ends here
+;;; tdtd-make-regexp.el ends here
