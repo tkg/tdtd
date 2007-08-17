@@ -13,7 +13,7 @@ dot_emacs                       Some things for your .emacs file
 tdtd.el                         A collection of DTD-related procedures
 tdtd-font.el                    Font lock keywords for DTDs
 tdtd-font-maker.el              Data and procedure to create tdtd-font.el
-make-regexp.el                  Used by tdtd-font-maker.el
+tdtd-make-regexp.el             Used by tdtd-font-maker.el
 changelog.txt                   List of changes
 tutorial.txt                    A tutorial on using dtd-mode
 
@@ -138,5 +138,6 @@ expressions in tdtd-font-maker.el.
    tdtd-font.el is created in the current directory.
 
 -----
-$Id: readme.txt,v 1.19 2001-09-01 10:44:38-04 tkg Exp $
-$Name: tdtd08b1 $
+Tony Graham
+17 August 2007
+
