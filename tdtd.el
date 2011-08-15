@@ -165,6 +165,9 @@ from DTDs.")
 (defvar dtd-referenced-parameter-entity-names nil
   "List of parameter entity names recently entered in content models.")
 
+(defvar dtd-referenced-notation-type-names nil
+  "List of notation type names recently entered in content models.")
+
 (defvar dtd-element-type-name-history nil
   "Minibuffer history list for element type names.")
 
@@ -508,13 +511,14 @@ An example inserted element type declaration is as follows:
 "
   (interactive
    ;; Hackery and fakery
-   (let ((element-tag nil))
+   (let ((element-tag nil)
+	 (default (car dtd-referenced-element-type-names)))
      (list (progn
 	     ;; set element-tag to what's read from the minibuffer
 	     (setq element-tag
 		   (dtd-read-from-minibuffer
 		    "Element tag: "
-		    (car dtd-referenced-element-type-names)
+		    default
 		    'dtd-referenced-element-type-names))
 	     ;; complain if element-tag is an empty string and there's no
 	     ;; default
@@ -695,13 +699,14 @@ An example inserted \"defined in\" comment is as follows:
 "
   (interactive
    ;; Hackery and fakery
-   (let ((element-tag nil))
+   (let ((element-tag nil)
+	 (default (car dtd-referenced-element-type-names)))
      (list (progn
 	     ;; set element-tag to what's read from the minibuffer
 	     (setq element-tag
 		   (dtd-read-from-minibuffer
 		    "Element tag: "
-		    (car dtd-referenced-element-type-names)
+		    default
 		    'dtd-referenced-element-type-names))
 	     ;; complain if element-tag is an empty string and there's no
 	     ;; default
@@ -966,13 +971,14 @@ An example inserted notation type declaration is as follows:
 "
   (interactive
    ;; Hackery and fakery
-   (let ((notation-tag nil))
+   (let ((notation-tag nil)
+	 (default (car dtd-referenced-notation-type-names)))
      (list (progn
 	     ;; set notation-tag to what's read from the minibuffer
 	     (setq notation-tag
 		   (dtd-read-from-minibuffer
 		    "Notation tag: "
-		    (car dtd-referenced-notation-type-names)
+		    default
 		    'dtd-referenced-notation-type-names))
 	     ;; complain if notation-tag is an empty string and there's no
 	     ;; default
