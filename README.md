@@ -1,86 +1,88 @@
+# tdtd
+
 This package contains an emacs major mode for editing SGML and XML
 DTDs.  The current revision is 0.8 beta 1, dated 1st September, 2001.
 
 The tdtd home page is http://www.menteith.com/tdtd/
 
 
-* MANIFEST
+# MANIFEST
 
-File                            Contents
+File                          | Contents
+------------------------------|---------------------------------
+README.md                     | The file you are reading
+dot_emacs                     | Some things for your .emacs file
+tdtd.el                       | A collection of DTD-related procedures
+tdtd-font.el                  | Font lock keywords for DTDs
+tdtd-font-maker.el            | Data and procedure to create tdtd-font.el
+tdtd-make-regexp.el           | Used by tdtd-font-maker.el
+changelog.txt                 | List of changes
+tutorial.txt                  | A tutorial on using dtd-mode
 
-readme.txt                      The file you are reading
-dot_emacs                       Some things for your .emacs file
-tdtd.el                         A collection of DTD-related procedures
-tdtd-font.el                    Font lock keywords for DTDs
-tdtd-font-maker.el              Data and procedure to create tdtd-font.el
-tdtd-make-regexp.el             Used by tdtd-font-maker.el
-changelog.txt                   List of changes
-tutorial.txt                    A tutorial on using dtd-mode
 
+# FEATURES
 
-* FEATURES
+* Standalone mode for editing DTDs;
 
- - Standalone mode for editing DTDs;
+* "Goto" menu for locating declarations within the current buffer;
 
- - "Goto" menu for locating declarations within the current buffer;
+* `dtd-etags` function for creating Emacs TAGS files for easy lookup
+  across multiple files of any element, parameter entity, or
+  notation's definition using Emacs's built-in tag-lookup functions;
 
- - `dtd-etags' function for creating Emacs TAGS files for easy lookup
-   across multiple files of any element, parameter entity, or
-   notation's definition using Emacs's built-in tag-lookup functions;
-
- - `dtd-grep' function for searching files that shares a file history
-   with `dtd-etags' for easy searching of the same files with both
+* `dtd-grep` function for searching files that shares a file history
+   with `dtd-etags` for easy searching of the same files with both
    functions;
 
- - Specific font lock highlighting of declarations in XML DTDs, SGML
-   DTDs, SGML Declarations, and System Declarations so that the
-   important information stands out;
+* Specific font lock highlighting of declarations in XML DTDs, SGML
+  DTDs, SGML Declarations, and System Declarations so that the
+  important information stands out;
 
- - XML-specific behaviour that, at user option, is triggered by
-   automatic detection of the XML Declaration; 
+* XML-specific behaviour that, at user option, is triggered by
+  automatic detection of the XML Declaration; 
 
- - Functions for writing and editing element, attribute, internal
-   parameter entity and external parameter entity declarations and
-   comments to ease creating and keeping a consistent style; and
+* Functions for writing and editing element, attribute, internal
+  parameter entity and external parameter entity declarations and
+  comments to ease creating and keeping a consistent style; and
 
- - Elements and parameter entity names referenced in declarations are
-   stored in minibuffer history to minimise retyping in new
-   declarations.
+* Elements and parameter entity names referenced in declarations are
+  stored in minibuffer history to minimise retyping in new
+  declarations.
 
-dtd-mode references `sgml-validate' for its validation function.  Use
-with Lennart Staflin's psgml package is recommended.
+dtd-mode references `sgml-validate` for its validation function.  Use
+with Lennart Staflin's `psgml` package is recommended.
 
-Use with resize-minibuffer-mode is also recommended.
+Use with `resize-minibuffer-mode` is also recommended.
 
-The "Goto" menu is only available if you have imenu.el.
+The "Goto" menu is only available if you have `imenu.el`.
 
 dtd-mode was tested using NTEmacs 20.7.1.
 
-* FORMATTING VARIABLES
+# FORMATTING VARIABLES
 
 dtd-mode uses many user-definable variables to control the formatting
 of declarations, some of which are shown in the following examples:
 
-                        dtd-comment-start-column    dtd-dtd-max-column
-                        |                    dtd-comment-max-column  |
-                        |                                         |  |
-<!--                    This is a comment                          -->
+                            dtd-comment-start-column    dtd-dtd-max-column
+                            |                    dtd-comment-max-column  |
+                            |                                         |  |
+    <!--                    This is a comment                          -->
 
-           dtd-element-name-column
-           |            dtd-element-tag-ommission-column
-           |            |   dtd-element-content-spec-start-column
-           |            |   |dtd-element-content-spec-continuation-column
-           |            |   ||                      dtd-dtd-max-column
-           |            |   ||                                       |
-<!ELEMENT  element-tag  - - (insert, your, content, specification,
-                             here)                                   >
+               dtd-element-name-column
+               |            dtd-element-tag-ommission-column
+               |            |   dtd-element-content-spec-start-column
+               |            |   |dtd-element-content-spec-continuation-column
+               |            |   ||                      dtd-dtd-max-column
+               |            |   ||                                       |
+    <!ELEMENT  element-tag  - - (insert, your, content, specification,
+                                 here)                                   >
 
-* BUG REPORTS/ENCHANCEMENTS
+# BUG REPORTS/ENCHANCEMENTS
 
 I would be glad to accept bug reports and/or enhancements.  Use
-`dtd-submit-bug-report'.
+`dtd-submit-bug-report`.
 
-* INSTALLATION
+# INSTALLATION
 
 1. Unzip the distribution.
 
@@ -91,7 +93,7 @@ I would be glad to accept bug reports and/or enhancements.  Use
    local convention.
 
 2. Copy the tdtd.el and tdtd-font.el files to somewhere on your emacs
-   `load-path'; for example, your emacs site-lisp directory (e.g.,
+   `load-path`; for example, your emacs site-lisp directory (e.g.,
    /usr/local/lib/emacs/site-lisp).
 
    XEmacs users also need to make sure that they have imenu.el
@@ -125,19 +127,18 @@ I would be glad to accept bug reports and/or enhancements.  Use
    will automatically be loaded.
 
 
-* MAKING tdtd-font.el
+# MAKING tdtd-font.el
 
 tdtd-font.el is created by tdtd-font-maker.el.  You should not need to
 remake tdtd-font.el unless you have tinkered with the regular
 expressions in tdtd-font-maker.el.
 
-1. Load file `tdtd-font-maker.el'.
+1. Load file `tdtd-font-maker.el`.
 
-2. Execute `dtd-make-tdtd-font'.
+2. Execute `dtd-make-tdtd-font`.
 
    tdtd-font.el is created in the current directory.
 
 -----
 Tony Graham
 17 August 2007
-
