@@ -126,6 +126,9 @@ I would be glad to accept bug reports and/or enhancements.  Use
 5. When you visit a file with an extension of .dtd, etc., dtd-mode
    will automatically be loaded.
 
+6. You will probably want to install Lennart Staflin's "psgml" package
+   to enable all features.
+
 
 # MAKING tdtd-font.el
 
