@@ -1,8 +1,6 @@
 ;;;; tdtd.el --- Tony's DTD mode
-;; $Id: tdtd.el,v 1.45 2001-08-31 23:15:22-04 tkg Exp $
-;; $Name: tdtd08b1 $
 
-;; Copyright (C) 1996, 1997, 1998, 1999, 2001, 2007 Tony Graham
+;; Copyright (C) 1996, 1997, 1998, 1999, 2001, 2007, 2019 Tony Graham
 
 ;; Author: Tony Graham <tkg@menteith.com>
 ;; Contributors: Juanma Barranquero, Adam di Carlo
@@ -1691,7 +1689,7 @@ and dtd-etags-output-file variables to construct the command passed to
 		 (message "%s" declaration-type)
 		 (beginning-of-line)
 ;;		 (insert "@")
-		 (case declaration-type
+		 (cl-case declaration-type
 		   ('element
 		    (cond
 		     ((looking-at "<!ELEMENT\\s-*$")
