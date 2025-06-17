@@ -22,7 +22,7 @@ tutorial.txt                    A tutorial on using dtd-mode
 
  - Standalone mode for editing DTDs;
 
- - "Goto" menu for locating declarations within the current buffer;
+ - "TAGS" menu for locating declarations within the current buffer;
 
  - `dtd-etags' function for creating Emacs TAGS files for easy lookup
    across multiple files of any element, parameter entity, or
@@ -52,7 +52,7 @@ with Lennart Staflin's psgml package is recommended.
 
 Use with resize-minibuffer-mode is also recommended.
 
-The "Goto" menu is only available if you have imenu.el.
+The "TAGS" menu is only available if you have imenu.el.
 
 dtd-mode was tested using NTEmacs 20.7.1.
 
