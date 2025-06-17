@@ -1,5 +1,3 @@
-;; $Id: dot_emacs,v 1.6 2001-08-12 21:19:52-04 tkg Exp $
-
 ;; DTD mode
 (autoload 'dtd-mode "tdtd" "Major mode for SGML and XML DTDs." t)
 (autoload 'dtd-etags "tdtd"
