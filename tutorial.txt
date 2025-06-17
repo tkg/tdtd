@@ -287,16 +287,11 @@ You are going to create the following DTD file:
 
        One day there'll be an auto-fill function...
 
-8. Use the "Goto" menu to find the declaration for <item>:
+8. Use the "TAGS" menu to find the declaration for <item>:
 
-   8.1 Under the "Goto" menu, select the "item" entry.
+   8.1 Under the "TAGS" menu, select the "item" entry.
 
        Point moves to the first token in the <item> content
        specification.
 
 9. Type "C-x C-s" to save the file.
-
-
------
-$Id: tutorial.txt,v 1.8 2001-08-31 23:14:30-04 tkg Exp $
-$Name: tdtd08b1 $
