@@ -1,8 +1,6 @@
 ;;;; tdtd-font-maker.el --- Specify and generate font-lock keywords
-;; $Id: tdtd-font-maker.el,v 0.20 2001-08-31 23:16:19-04 tkg Exp $
-;; $Name: tdtd08b1 $
 
-;; Copyright (C) 1997, 1998, 1999, 2001, 2007 Tony Graham
+;; Copyright (C) 1997, 1998, 1999, 2001, 2007, 2019, 2025 Tony Graham
 
 ;; Author: Tony Graham <tkg@menteith.com>
 
@@ -60,7 +58,7 @@
 ;; In several cases, keywords beginning with "#" (RNI) are shown as
 ;; allowed in XML and SGML DTDs, and the word without the RNI is shown
 ;; as allowed in SGML Declarations.  SGML's reserved words that are
-;; not used in the SGML Declaration may be redefined in the
+;; not used in the SGML Declaration may be redefined in the SGML
 ;; Declaration, hence the non-RNI form is a keyword in the Declaration
 ;; (even though this font lock stuff doesn't match on the redefined
 ;; reserved word).
@@ -563,7 +561,7 @@
    ;; font-lock-variable-name-face.  E.g:
    ;; <!ENTITY % %entity; "..." >
    ;;
-   '("[%&][^; \t]+;" . font-lock-reference-face)
+   '("[%&][^; \t]+;" . font-lock-preprocessor-face)
    )
   "Font lock keywords pattern matching an entity reference.")
 
@@ -897,10 +895,8 @@
   (find-file "tdtd-font.el")
   (kill-region (point-min) (point-max))
   (insert ";;;; tdtd-font.el --- Font-lock keywords for Tony's DTD mode\n")
-  (insert ";; $\Id$\n")
-  (insert ";; $\Name$\n")
   (insert ";;\n")
-  (insert ";; Copyright (C) 1999, 2001 Tony Graham\n")
+  (insert ";; Copyright (C) 1999, 2001, 2019, 2025 Tony Graham\n")
   (insert ";;\n")
   (insert ";; Author: Tony Graham <tkg@menteith.com>\n")
   (insert "\n")
