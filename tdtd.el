@@ -1,6 +1,6 @@
 ;;;; tdtd.el --- Tony's DTD mode
 
-;; Copyright (C) 1996, 1997, 1998, 1999, 2001, 2007, 2019 Tony Graham
+;; Copyright (C) 1996, 1997, 1998, 1999, 2001, 2007, 2019, 2025 Tony Graham
 
 ;; Author: Tony Graham <tkg@menteith.com>
 ;; Contributors: Juanma Barranquero, Adam di Carlo
@@ -50,7 +50,7 @@
 
 ;; We need etags for `find-tag-default'
 (require 'etags)
-(require 'cl)
+(require 'cl-lib)
 (require 'tdtd-font "tdtd-font")
 
 (provide 'tdtd)
@@ -1683,14 +1683,14 @@ and dtd-etags-output-file variables to construct the command passed to
 		  ((looking-at "<!DOCTYPE") 'doctype)
 		  ((looking-at "<!\\[\\s-+CDATA") 'cdata-section)
 		  (t
-		   'unknown))))
+		   unknown))))
 	      (indent
 	       (progn
 		 (message "%s" declaration-type)
 		 (beginning-of-line)
 ;;		 (insert "@")
 		 (cl-case declaration-type
-		   ('element
+		   (element
 		    (cond
 		     ((looking-at "<!ELEMENT\\s-*$")
 		      (message "ELEMENT")
@@ -1720,7 +1720,7 @@ and dtd-etags-output-file variables to construct the command passed to
 		     (t
 		      (message "other element")
 		      0)))
-		    ('attlist
+		    (attlist
 		     (cond
 		      ((looking-at "<!ATTLIST$")
 		       (message "attlist")
@@ -1781,7 +1781,7 @@ and dtd-etags-output-file variables to construct the command passed to
 		      (t
 		       (message "other attlist")
 		       0)))
-		    ('parameter-entity
+		    (parameter-entity
 		     (cond
 		      ((looking-at
 			"<!ENTITY\\s-+%\\s-+\\sw+\\s-+\\(PUBLIC\\|SYSTEM\\)$")
@@ -1798,7 +1798,7 @@ and dtd-etags-output-file variables to construct the command passed to
 		     (t
 		      (message "other parameter entity")
 		      0)))
-		    ('comment
+		    (comment
 		     (cond
 		      ((looking-at "<!--")
 		       (message "comment")
@@ -1811,7 +1811,7 @@ and dtd-etags-output-file variables to construct the command passed to
 		     (t
 		      (message "other comment")
 		      0)))
-		    ('unknown
+		    (unknown
 		     (message "unknown")
 		     0)))))
 	   indent))))))
